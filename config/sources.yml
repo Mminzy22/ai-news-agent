@@ -1,0 +1,16 @@
+sources:
+  - name: Hacker News
+    url: https://news.ycombinator.com/rss
+    type: rss
+    language: en
+    weight: 1.0
+  - name: GeekNews
+    url: https://news.hada.io/rss/news
+    type: atom
+    language: ko
+    weight: 1.3
+  - name: AI Times
+    url: https://cdn.aitimes.com/rss/gn_rss_allArticle.xml
+    type: rss
+    language: ko
+    weight: 1.1
