@@ -51,6 +51,8 @@ python -m src.scheduler
 
 성공하면 `data/seen.json`에 발송한 기사 ID가 저장되고, 다음 실행부터 같은 기사는 다시 보내지 않습니다.
 
+발송된 Slack 메시지는 `뉴스 요약/YYYY-MM-DD.md`에도 저장됩니다.
+
 ### 4. 같은 기사로 Slack 발송을 다시 테스트하고 싶을 때
 
 이미 보낸 기사도 다시 포함해서 Slack 발송을 테스트하려면 아래 명령을 사용합니다.
@@ -69,6 +71,18 @@ python -m src.scheduler --include-seen
 4. 비슷한 제목의 중복 기사를 제거합니다.
 5. 상위 `MAX_ARTICLES`개를 OpenAI로 한국어 요약합니다.
 6. Slack Incoming Webhook으로 메시지를 보냅니다.
+7. 발송한 메시지를 `뉴스 요약/YYYY-MM-DD.md`에 저장합니다.
+
+## 발송 기록 확인
+
+로컬에서 Slack 발송을 실행하면 발송 내용이 날짜별 Markdown 파일로 저장됩니다.
+
+```bash
+ls "뉴스 요약"
+cat "뉴스 요약/2026-06-13.md"
+```
+
+GitHub Actions에서 실행된 경우에는 `뉴스 요약/YYYY-MM-DD.md` 파일을 자동으로 커밋하고 push합니다.
 
 ## 뉴스 소스 수정
 
@@ -109,3 +123,5 @@ GitHub 저장소 Settings → Secrets and variables → Actions에 아래 secret
 
 - `OPENAI_API_KEY`
 - `SLACK_WEBHOOK_URL`
+
+Actions 실행 후에는 Slack에 보낸 메시지가 `뉴스 요약/YYYY-MM-DD.md`로 커밋됩니다. 이 동작을 위해 workflow에 `contents: write` 권한이 설정되어 있습니다.

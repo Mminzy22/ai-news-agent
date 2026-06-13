@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 
+from .archive import save_digest
 from .config import get_settings, load_sources
 from .fetchers import fetch_articles
 from .ranker import article_id, select_articles
@@ -33,8 +34,10 @@ def main() -> None:
         return
 
     send_message(settings.slack_webhook_url, message)
+    archive_path = save_digest(message)
     seen.update(article_id(article) for article in selected)
     save_seen(seen)
+    print(f"Saved digest archive: {archive_path}")
 
 
 if __name__ == "__main__":
