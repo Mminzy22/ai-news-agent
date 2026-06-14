@@ -117,7 +117,7 @@ python -m unittest discover
 
 ## GitHub Actions
 
-`.github/workflows/daily-news.yml`는 평일 오전 9시 KST에 실행됩니다.
+`.github/workflows/daily-news.yml`는 매일 오전 9시 KST에 실행됩니다.
 
 GitHub 저장소 Settings → Secrets and variables → Actions에 아래 secrets를 추가해야 합니다.
 
