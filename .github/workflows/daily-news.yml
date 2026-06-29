@@ -2,37 +2,13 @@ name: Daily AI News
 
 on:
   workflow_dispatch:
-  schedule:
-    # 09:00 Asia/Seoul, every day
-    - cron: "0 0 * * *"
-
-permissions:
-  contents: write
+  # schedule:
+  #   # 09:00 Asia/Seoul, every day
+  #   - cron: "0 0 * * *"
 
 jobs:
-  send:
+  disabled:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Send digest
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          OPENAI_MODEL: gpt-5
-          MAX_ARTICLES: "8"
-          LOOKBACK_HOURS: "24"
-        run: python -m src.scheduler
-      - name: Commit digest archive
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "뉴스 요약"/*.md
-          if git diff --cached --quiet; then
-            echo "No digest archive changes to commit."
-          else
-            git commit -m "Archive daily AI news digest"
-            git push
-          fi
+      - name: Scheduled workflow disabled
+        run: echo "Scheduled daily news workflow is disabled."
